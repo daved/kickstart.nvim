@@ -11,19 +11,13 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- `select = false` confirms only explicit selection
     ['<Down>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
         cmp.close()
-      else
         fallback()
-      end
-    end, { "i" }),
+    end, { 'i' }),
     ['<Up>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
         cmp.close()
-      else
         fallback()
-      end
-    end, { "i" }),
+    end, { 'i' }),
   }),
 })]]--
 
