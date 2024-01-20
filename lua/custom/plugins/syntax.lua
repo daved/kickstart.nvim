@@ -83,7 +83,7 @@ return {
         }
 
         if string.lower(args.fargs[1]) == "dark" then
-          vim.g.everforest_background = 'soft'
+          vim.g.everforest_background = 'medium'
           vim.opt.background = 'dark'
 
           vim.api.nvim_set_hl(0, "Comment", { fg = '#555555' })

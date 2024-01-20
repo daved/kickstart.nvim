@@ -102,6 +102,8 @@ require('lazy').setup({
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
 
+      'hrsh7th/cmp-path',
+
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
@@ -149,6 +151,34 @@ require('lazy').setup({
         theme = 'onedark',
         component_separators = '|',
         section_separators = '',
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = {
+          {
+            'filename',
+            file_status = true,   -- Displays file status (readonly status, modified status)
+            newfile_status = false, -- Display new file status (new file means no write after created)
+            path = 3,             -- 0: Just the filename
+            -- 1: Relative path
+            -- 2: Absolute path
+            -- 3: Absolute path, with tilde as the home directory
+            -- 4: Filename and parent dir, with tilde as the home directory
+
+            shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+            -- for other components. (terrible name, any suggestions?)
+            symbols = {
+              modified = '[+]',    -- Text to show when the file is modified.
+              readonly = '[-]',    -- Text to show when the file is non-modifiable or readonly.
+              unnamed = '[No Name]', -- Text to show for unnamed buffers.
+              newfile = '[New]',   -- Text to show for newly created file before first write
+            }
+          }
+        },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
       },
     },
   },
@@ -211,7 +241,7 @@ require('lazy').setup({
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -510,17 +540,18 @@ cmp.setup {
       end
     end, { 'i', 's' }),
     ['<Down>'] = cmp.mapping(function(fallback)
-        cmp.close()
-        fallback()
+      cmp.close()
+      fallback()
     end, { 'i' }),
     ['<Up>'] = cmp.mapping(function(fallback)
-        cmp.close()
-        fallback()
+      cmp.close()
+      fallback()
     end, { 'i' }),
   },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'path' },
   },
 }
 
