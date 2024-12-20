@@ -15,6 +15,43 @@ return {
     end,
   },
   {
+    "sainnhe/everforest",
+    priority = 900,
+    config = function()
+      vim.api.nvim_create_user_command('SetColor', function(args)
+        vim.opt.termguicolors = true
+
+        --vim.g.everforest_colors_override = { grey1 = { "#000000", 000 } }
+        vim.g.everforest_dim_inactive_windows = 1
+        vim.g.everforest_enable_italic = 1
+
+        vim.cmd.colorscheme 'everforest'
+  --      require 'lualine'.setup {
+  --        options = {
+  --          theme = 'everforest'
+  --        }
+  --      }
+
+        if string.lower(args.fargs[1]) == "dark" then
+          vim.g.everforest_background = 'medium'
+          vim.opt.background = 'dark'
+
+          vim.api.nvim_set_hl(0, "Comment", { fg = '#555555' })
+          vim.api.nvim_set_hl(0, "SpecialComment", { fg = '#555555' })
+        end
+        if string.lower(args.fargs[1]) == "light" then
+          vim.g.everforest_background = 'medium'
+          vim.opt.background = 'light'
+
+          vim.api.nvim_set_hl(0, "Comment", { fg = '#cccccc' })
+          vim.api.nvim_set_hl(0, "SpecialComment", { fg = '#cccccc' })
+        end
+      end, { desc = "Something", nargs = '*' })
+
+      vim.cmd("SetColor dark")
+    end,
+  },
+  {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason.nvim" },
@@ -62,43 +99,6 @@ return {
         --table.insert(sources, gotest)
         --table.insert(sources, gotest_codeaction)
       })
-    end,
-  },
-  {
-    "sainnhe/everforest",
-    priority = 900,
-    config = function()
-      vim.api.nvim_create_user_command('SetColor', function(args)
-        vim.opt.termguicolors = true
-
-        --vim.g.everforest_colors_override = { grey1 = { "#000000", 000 } }
-        vim.g.everforest_dim_inactive_windows = 1
-        vim.g.everforest_enable_italic = 1
-
-        vim.cmd.colorscheme 'everforest'
-        require 'lualine'.setup {
-          options = {
-            theme = 'everforest'
-          }
-        }
-
-        if string.lower(args.fargs[1]) == "dark" then
-          vim.g.everforest_background = 'medium'
-          vim.opt.background = 'dark'
-
-          vim.api.nvim_set_hl(0, "Comment", { fg = '#555555' })
-          vim.api.nvim_set_hl(0, "SpecialComment", { fg = '#555555' })
-        end
-        if string.lower(args.fargs[1]) == "light" then
-          vim.g.everforest_background = 'medium'
-          vim.opt.background = 'light'
-
-          vim.api.nvim_set_hl(0, "Comment", { fg = '#cccccc' })
-          vim.api.nvim_set_hl(0, "SpecialComment", { fg = '#cccccc' })
-        end
-      end, { desc = "Something", nargs = '*' })
-
-      vim.cmd("SetColor dark")
     end,
   },
 }
